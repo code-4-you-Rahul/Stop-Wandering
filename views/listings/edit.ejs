@@ -3,33 +3,45 @@
     <div class="row">
         <div class="col-8 offset-2">
             <h3>Edit Your List</h3>
-    <form method = "post" action = "/listings/<%=value._id%>?_method=patch">
+    <form method = "post" novalidate class = "needs-validation" action = "/listings/<%=value._id%>?_method=patch">
 <div class = "mb-3">
     <label for = "title" class = "form-label">Title</label>
-    <input type = "text" id = "title" value = "<%=value.title%>"class = "form-control" name="listing[title]"/>
+    <input type = "text" id = "title" value = "<%=value.title%>"class = "form-control" name="listing[title]" required/>
+    <div class = "valid-feedback">title look's Good!</div>
+    <div class = "invalid-feedback">please enter a valid title</div>
 </div>
 <div class = "mb-3">
     <label for = "description" class = "form-label">Description</label>
-    <textarea id = "description" class = "form-control" name="listing[description]"><%=value.description%></textarea>
+    <textarea id = "description" class = "form-control" name="listing[description]" required><%=value.description%></textarea>
+    <div class = "valid-feedback">description look's Good!</div>
+    <div class = "invalid-feedback">please enter a valid description</div>
 </div>
 <div class = "mb-3">
     <label for = "image" class = "form-label">url</label>
-    <input type = "text" name="listing[image]" value = "<%=value.image%>" class = "form-control" id = "image"/>
+    <input type = "text" name="listing[image]" value = "<%=value.image%>" class = "form-control" id = "image" required/>
+    <div class = "valid-feedback">Image look's Good!</div>
+    <div class = "invalid-feedback">please enter a valid url</div>
 </div>
 
 <div class = "mb-3">
     <label for = "location" class = "form-label">location</label>
-    <input type = "text" name="listing[location]" class = "form-control" value ="<%=value.location%>" id = "location"/>
+    <input type = "text" name="listing[location]" class = "form-control" value ="<%=value.location%>" id = "location" required/>
+    <div class = "valid-feedback">location look's Good!</div>
+    <div class = "invalid-feedback">please enter a valid location</div>
 </div>
 
 <div class = "row"> 
     <div class = "mb-3 col-md-6">
         <label for = "price" class = "form-label">Price</label>
-        <input type = "number" name="listing[price]" class = "form-control" id = "price" value = "<%=value.price%>"/>
+        <input type = "number" name="listing[price]" class = "form-control" id = "price" value = "<%=value.price%>" required/>
+        <div class = "valid-feedback">price look's Good!</div>
+        <div class = "invalid-feedback">please enter a valid price</div>
     </div>
             <div class = "mb-3 col-md-6">
                 <label for = "country" class = "form-label">country</label>
-                <input type = "text" name="listing[country]" class = "form-control" id = "country" value = "<%=value.country%>"/>
+                <input type = "text" name="listing[country]" class = "form-control" id = "country" value = "<%=value.country%>" required/>
+                <div class = "valid-feedback">country look's Good!</div>
+                <div class = "invalid-feedback">please enter a valid country</div>
             </div>
 </div>
 <button class = "btn btn-outline-primary">

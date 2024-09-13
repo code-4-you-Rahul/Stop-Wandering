@@ -4,14 +4,18 @@
         <div class="col-8 offset-2">
             <h3>Create New Listings</h3>
 
-    <form method = "post" action = "/listings ">
+    <form method = "post" novalidate class = "needs-validation" action = "/listings ">
 <div class = "mb-3">
     <label for = "title" class = "form-label">Title</label>
-    <input type = "text" id = "title" class = "form-control" name="listing[title]"/>
+    <input type = "text" id = "title" class = "form-control" name="listing[title]" required/>
+    <div class = "valid-feedback">Title look's Good!</div>
+    <div class = "invalid-feedback">please enter a valid title</div>
 </div>
 <div class = "mb-3">
     <label for = "description" class = "form-label">Description</label>
-    <textarea id = "description" class = "form-control" name="listing[description]"></textarea>
+    <textarea id = "description" class = "form-control" name="listing[description]" required></textarea>
+    <div class = "valid-feedback">Description look's Good!</div>
+    <div class = "invalid-feedback">please enter a valid Description</div>
 </div>
 <div class = "mb-3">
     <label for = "image" class = "form-label">url</label>
@@ -20,17 +24,23 @@
 
 <div class = "mb-3">
     <label for = "location" class = "form-label">location</label>
-    <input type = "text" name="listing[location]" class = "form-control" id = "location"/>
+    <input type = "text" name="listing[location]" class = "form-control" id = "location" required/>
+    <div class = "valid-feedback">location look's Good!</div>
+    <div class = "invalid-feedback">please enter a valid location</div>
 </div>
 
 <div class = "row"> 
     <div class = "mb-3 col-md-6">
         <label for = "price" class = "form-label">Price</label>
-        <input type = "number" name="listing[price]" class = "form-control" id = "price"/>
+        <input type = "number" name="listing[price]" class = "form-control" id = "price" required/>
+        <div class = "valid-feedback">price look's Good!</div>
+        <div class = "invalid-feedback">please enter a valid price</div>
     </div>
             <div class = "mb-3 col-md-6">
                 <label for = "country" class = "form-label">country</label>
-                <input type = "text" name="listing[country]" class = "form-control" id = "country"/>
+                <input type = "text" name="listing[country]" class = "form-control" id = "country" required/>
+                <div class = "valid-feedback">country look's Good!</div>
+                <div class = "invalid-feedback">please enter a valid country</div>
             </div>
 </div>
 <button class = "btn btn-outline-primary">
