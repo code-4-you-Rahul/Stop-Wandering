@@ -32,6 +32,40 @@
 <form method = "post" action = "/listings/<%=value._id%>?_method=delete">
     <button class = "btn btn-outline-danger">delete</button>
 </form>
+<div class="col-8 offset-3">
+<h4>Send Your Experience</h4>
+<form method = "post" novalidate class = "needs-validation" action = "/listings/<%=value._id%>/reviews">
+    <div class = "mb-3 mt-3">
+        <label for="customRange2" class="form-label">Range</label>
+        <input type="range"min="1" max="5" id="customRange2" name = "review[rating]">
+    </div>
+    <div class = "mb-3 mt-3">
+        <label for = "comment" class = "form-label">Comment</label>
+        <br>
+        <textarea name = "review[comment]" id = "comment" rows = "5" cols = "10" class="form-control" required></textarea>
+        <div class = "valid-feedback">Thanks For Response</div>
+        <div class = "invalid-feedback">Please Explain Your Response</div>
+    </div>
+    <div>
+        <button class = "btn btn-outline-dark">Submit</button>
+    </div>
+</form>
+</div>
+<hr>
+<h4>All Reviews</h4>
+<div class="row">
+    <div class="col-md-6 col-lg-12 reviewcol">
+        <%for(let review of value.reviews){%>
+            <div class="card mt-3" style="width: 18rem;">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Rahul</li>
+                  <li class="list-group-item"><%=review.comment%></li>
+                  <li class="list-group-item"><%=review.rating%></li>
+                </ul>
+              </div>
+            <%}%>
+    </div>  
+    </div>
 <br>
 <br>
 </body>

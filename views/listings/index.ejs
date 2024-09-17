@@ -1,21 +1,21 @@
 <% layout("/layouts/boilerplate.ejs"); %>
 <body>
 <h2>All Listings</h2>
-    <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-2">
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
         <%for(let list of lists){%>
-           <a href = "/listings/show/<%=list._id%>"> <div class="card" >
-                <img src="<%=list.image%>" class="card-img-top" alt="listing_images" style = "height: 20rem; width: 20rem;">
-                <div class="card-img-overlay">
-                                    
+           <a href = "/listings/show/<%=list._id%>"> 
+            <div class="listing-card" style="width: 20rem;" >
+                <img src="<%=list.image%>" class="card-img-top" alt="listing_images" style = "height: 20rem;">
+                <div class="card-img-overlay"> 
                   </div>
                 <div class="card-body">
                   <p class="card-text"><b><%=list.title%></b>
                 <br>
                 &#8377; <%=list.price.toLocaleString("en-IN")%>/night
                 </p>
-            </a>
                 </div>
               </div>
+            </a>
         <%}%>
     </div>
 </body>

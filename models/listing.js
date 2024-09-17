@@ -23,7 +23,11 @@ const listingschema = new mongoose.Schema(
         },
         country:{
             type:String
-        }
+        },
+        reviews:[{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"review"
+        }]
     }
 );
 
