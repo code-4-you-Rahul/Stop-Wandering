@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const reviewschema = new mongoose.Schema({
 rating:{
     type:Number,
-    min:[1,"Plz explain your experience through rating"],
+    min:1,
     max:5
 },
 comment:{

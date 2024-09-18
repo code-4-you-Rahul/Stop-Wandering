@@ -1,5 +1,5 @@
 const Joi = require("joi");
-const listingschema = Joi.object({
+module.exports.listingschema = Joi.object({
     listing:Joi.object({
         title :Joi.string().required(),
         description : Joi.string().required(),
@@ -7,13 +7,11 @@ const listingschema = Joi.object({
         location:Joi.string().required(),
         price:Joi.number().required().min(1),
         country:Joi.string().required()
-    }).required()
+    }).required(),
 });
-module.exports = listingschema;
-const reviewschema = Joi.object({
+module.exports.reviewschema = Joi.object({
 review:Joi.object({
-    rating:Joi.number().required().min(1),
+    rating:Joi.number().required().min(1).max(5),
     comment:Joi.string().required()
-}).required()
+}).required(),
 });
-module.exports = reviewschema;

@@ -46,7 +46,7 @@ body{
 .container{
     flex:1;
 }
-.listing-card{
+.card{
     border:none !important;
     margin-bottom: 2rem;
     margin:1rem;
@@ -66,7 +66,7 @@ body{
 }
 .card-img-overlay:hover{
     opacity:0.2;
-    background-color: white;
+    background-color: white !important;
 }
 /* show.ejs */
 .show{
