@@ -25,6 +25,10 @@ lrouter.get("/",wrapasync(async (req,res)=>{
 lrouter.get("/show/:id",wrapasync(async(req,res)=>{
     let {id} = req.params;
     const value = await list.findById(id).populate("reviews");
+    if(!value){
+       req.flash("error","listing you requrested does not exist");
+       res.redirect("/listings");
+    }
     res.render("listings/show.ejs",{value});
 }));
 //new route
@@ -35,6 +39,7 @@ lrouter.get("/new",(req,res)=>{
 lrouter.post("/",listingvalidateschema,wrapasync(async(req,res,next)=>{
      let newlist = new list(req.body.listing);
   await newlist.save();
+  req.flash("success","new listing created");
   res.redirect("/listings");
 }));
 //edit route
@@ -48,12 +53,14 @@ lrouter.patch("/:id",listingvalidateschema,wrapasync(async (req,res)=>{
     
     let{id} = req.params;
     await list.findByIdAndUpdate(id,{...req.body.listing},{runValidators:true},{new:true});
+    req.flash("success","listing updated");
     res.redirect(`/listings/show/${id}`);
 }));
 //delete route
-lrouter.delete(" /:id",wrapasync(async (req,res)=>{
+lrouter.delete("/:id",wrapasync(async (req,res)=>{
 let {id} = req.params;
 await list.findByIdAndDelete(id);
+req.flash("success","listing deleted");
 res.redirect("/listings");
 }));
 
