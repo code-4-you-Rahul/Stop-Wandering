@@ -46,11 +46,14 @@ lrouter.post("/",listingvalidateschema,wrapasync(async(req,res,next)=>{
 lrouter.get("/edit/:id",wrapasync(async (req,res)=>{
 let {id} = req.params;
 const value = await list.findById(id);
+if(!value){
+    req.flash("error","listing not exist");
+    res.redirect("/listings");
+}
 res.render("listings/edit.ejs",{value});
 }));
 //edited value
 lrouter.patch("/:id",listingvalidateschema,wrapasync(async (req,res)=>{
-    
     let{id} = req.params;
     await list.findByIdAndUpdate(id,{...req.body.listing},{runValidators:true},{new:true});
     req.flash("success","listing updated");
