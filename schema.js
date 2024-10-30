@@ -1,3 +1,5 @@
+//listing schema::
+
 const Joi = require("joi");
 module.exports.listingschema = Joi.object({
     listing:Joi.object({
@@ -9,6 +11,9 @@ module.exports.listingschema = Joi.object({
         country:Joi.string().required()
     }).required(),
 });
+
+//review schema::
+
 module.exports.reviewschema = Joi.object({
 review:Joi.object({
     rating:Joi.number().required().min(1).max(5),

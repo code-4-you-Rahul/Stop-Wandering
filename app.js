@@ -6,8 +6,13 @@ const mongoose = require("mongoose");
 const methodoverride = require("method-override");
 const engiene = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
+
+//router section
 const lrouter = require("./routes/listingrouter.js");
 const rrouter = require("./routes/reviewrouter.js");
+const urouter = require("./routes/userrouter.js");
+ 
+//login//signup section 
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
@@ -67,8 +72,19 @@ app.use((req,res,next)=>{
     next();
 });
 
+// app.get("/demouser",async(req,res)=>{
+//     let fakeuser = new user({
+//         email:"rahulrout498@gmail.com",
+//         username:"rahul09"
+//     });
+//      let registeredUser = await user.register(fakeuser,"hello");
+//         res.send(registeredUser);
+//     });
+
+    //router middlewares
 app.use("/listings",lrouter);
 app.use("/listings/:id/reviews",rrouter);
+app.use("/",urouter);
 
 //page not found middleware
 app.all("*",(req,res,next)=>{
