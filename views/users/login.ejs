@@ -1,0 +1,26 @@
+<% layout("/layouts/boilerplate.ejs"); %>
+<body>
+    <div class="row">
+        <div class="col-8 offset-2">
+            <h2>LogIn in STOP WANDERING</h2>
+        <form method = "post" action = "/login" novalidate class = "needs-validation">
+                <div class = "mb-3">
+                <label for = "username" class = "form-label">UserName :</label>
+                <input type = "text" name = "username" id = "username" class = "form-control" placeholder="Enter your Username" required/>
+                <div class="valid-feedback">username looking unique</div>
+                <div class="invalid-feedback">Please enter your valid username</div>
+            </div>
+              
+                    <div class = "mb-3">
+                        <label for = "password" class = "form-label">Password :</label>
+                        <input type = "password" name = "password" id = "password" class = "form-control" placeholder="Enter your password" required/>
+                        <div class="valid-feedback">don't share your password with others</div>
+                        <div class="invalid-feedback">Please enter your saved password</div>
+                        </div>
+                        <button class = "btn btn-outline-primary">LogIn</button>
+        </form>
+        </div>
+    </div>
+        
+
+</body>

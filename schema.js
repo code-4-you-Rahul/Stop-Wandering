@@ -1,5 +1,4 @@
-//listing schema::
-
+//listing schema
 const Joi = require("joi");
 module.exports.listingschema = Joi.object({
     listing:Joi.object({

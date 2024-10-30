@@ -4,6 +4,7 @@ const list = require("../models/listing.js");
 const wrapasync = require("../utils/WrapAsync.js");
 const {listingschema}= require("../schema.js");
 const ExpressError = require("../utils/ExpressError.js");
+const {isLoggedIn} = require("../middleware.js");
 
 //listing validate function
 const listingvalidateschema = (req,res,next)=>{
@@ -32,18 +33,18 @@ lrouter.get("/show/:id",wrapasync(async(req,res)=>{
     res.render("listings/show.ejs",{value});
 }));
 //new route
-lrouter.get("/new",(req,res)=>{
+lrouter.get("/new",isLoggedIn,(req,res)=>{
     res.render("listings/new.ejs")
 });
 //post or save route
-lrouter.post("/",listingvalidateschema,wrapasync(async(req,res,next)=>{
+lrouter.post("/",isLoggedIn,listingvalidateschema,wrapasync(async(req,res,next)=>{
      let newlist = new list(req.body.listing);
   await newlist.save();
   req.flash("success","new listing created");
   res.redirect("/listings");
 }));
 //edit route
-lrouter.get("/edit/:id",wrapasync(async (req,res)=>{
+lrouter.get("/edit/:id",isLoggedIn,wrapasync(async (req,res)=>{
 let {id} = req.params;
 const value = await list.findById(id);
 if(!value){
@@ -53,14 +54,14 @@ if(!value){
 res.render("listings/edit.ejs",{value});
 }));
 //edited value
-lrouter.patch("/:id",listingvalidateschema,wrapasync(async (req,res)=>{
+lrouter.patch("/:id",isLoggedIn,listingvalidateschema,wrapasync(async (req,res)=>{
     let{id} = req.params;
     await list.findByIdAndUpdate(id,{...req.body.listing},{runValidators:true},{new:true});
     req.flash("success","listing updated");
     res.redirect(`/listings/show/${id}`);
 }));
 //delete route
-lrouter.delete("/:id",wrapasync(async (req,res)=>{
+lrouter.delete("/:id",isLoggedIn,wrapasync(async (req,res)=>{
 let {id} = req.params;
 await list.findByIdAndDelete(id);
 req.flash("success","listing deleted");
