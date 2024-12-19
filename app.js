@@ -30,7 +30,7 @@ app.use(methodoverride("_method"));
 
 
 async function main(){
-    await mongoose.connect("mongodb://127.0.0.1:27017/wonderlust")
+    await mongoose.connect("mongodb://127.0.0.1:27017/wonderlust");
 }
 
 main()
@@ -69,6 +69,7 @@ passport.deserializeUser(user.deserializeUser());
 app.use((req,res,next)=>{
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
+    res.locals.currentUser = req.user;
     next();
 });
 

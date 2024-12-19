@@ -44,7 +44,7 @@ lrouter.post("/",isLoggedIn,listingvalidateschema,wrapasync(async(req,res,next)=
   res.redirect("/listings");
 }));
 //edit route
-lrouter.get("/edit/:id",isLoggedIn,wrapasync(async (req,res)=>{
+lrouter.get("/edit/:id",isLoggedIn,wrapasync(async(req,res)=>{
 let {id} = req.params;
 const value = await list.findById(id);
 if(!value){

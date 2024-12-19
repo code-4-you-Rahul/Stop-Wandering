@@ -31,7 +31,7 @@ const listingschema = new mongoose.Schema(
     }
 );
 listingschema.post("findOneAndDelete",async(list)=>{
-    if(list){
+    if(list.reviews.length){
     await review.deleteMany({_id:{$in:list.reviews}});
 }});
 const list = mongoose.model("list",listingschema);
