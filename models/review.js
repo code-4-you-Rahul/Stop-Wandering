@@ -11,6 +11,10 @@ comment:{
 created_at:{
     type:Date,
     default:new Date(Date.now())
+},
+author:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"User"
 }
 });
 const review = mongoose.model("review",reviewschema);

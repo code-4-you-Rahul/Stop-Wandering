@@ -4,7 +4,7 @@ const list = require("../models/listing.js");
 const wrapasync = require("../utils/WrapAsync.js");
 const {listingschema}= require("../schema.js");
 const ExpressError = require("../utils/ExpressError.js");
-const {isLoggedIn} = require("../middleware.js");
+const {isLoggedIn,isOwner} = require("../middleware.js");
 
 //listing validate function
 const listingvalidateschema = (req,res,next)=>{
@@ -25,7 +25,12 @@ lrouter.get("/",wrapasync(async (req,res)=>{
 //show route
 lrouter.get("/show/:id",wrapasync(async(req,res)=>{
     let {id} = req.params;
-    const value = await list.findById(id).populate("reviews");
+    const value = await list.findById(id).populate({
+        path:"reviews",
+        populate:{
+            path:"author"
+        }
+    }).populate("owner");
     if(!value){
        req.flash("error","listing you requrested does not exist");
        res.redirect("/listings");
@@ -39,12 +44,16 @@ lrouter.get("/new",isLoggedIn,(req,res)=>{
 //post or save route
 lrouter.post("/",isLoggedIn,listingvalidateschema,wrapasync(async(req,res,next)=>{
      let newlist = new list(req.body.listing);
+     newlist.owner = req.user._id;
   await newlist.save();
   req.flash("success","new listing created");
   res.redirect("/listings");
 }));
 //edit route
-lrouter.get("/edit/:id",isLoggedIn,wrapasync(async(req,res)=>{
+lrouter.get("/edit/:id",
+    isLoggedIn,
+    isOwner,
+    wrapasync(async(req,res)=>{
 let {id} = req.params;
 const value = await list.findById(id);
 if(!value){
@@ -54,14 +63,21 @@ if(!value){
 res.render("listings/edit.ejs",{value});
 }));
 //edited value
-lrouter.patch("/:id",isLoggedIn,listingvalidateschema,wrapasync(async (req,res)=>{
+lrouter.patch("/:id",
+    isLoggedIn,
+    isOwner,
+    listingvalidateschema,
+    wrapasync(async (req,res)=>{
     let{id} = req.params;
     await list.findByIdAndUpdate(id,{...req.body.listing},{runValidators:true},{new:true});
     req.flash("success","listing updated");
     res.redirect(`/listings/show/${id}`);
 }));
 //delete route
-lrouter.delete("/:id",isLoggedIn,wrapasync(async (req,res)=>{
+lrouter.delete("/:id",
+    isLoggedIn,
+    isOwner,
+    wrapasync(async (req,res)=>{
 let {id} = req.params;
 await list.findByIdAndDelete(id);
 req.flash("success","listing deleted");

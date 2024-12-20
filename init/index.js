@@ -16,7 +16,14 @@ main()
 
 async function initialize(){
     await list.deleteMany();
-    await list.insertMany(data);
+   const newArray = data.map((el)=>(
+        {
+            ...el,
+            owner:"6763b7d2cf2bae9d52fcc8e0",
+        }
+
+    ));
+    await list.insertMany(newArray);
 }
 initialize()
 .then((result)=>{
