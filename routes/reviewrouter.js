@@ -6,6 +6,7 @@ const wrapasync = require("../utils/WrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const list = require("../models/listing.js");
 const { isLoggedIn,isAuthor } = require("../middleware.js");
+const reviewControllers = require("../controllers/review.js");
 
 //review validate schema using joi
 const reviewvalidateschema = (req,res,next)=>{
@@ -24,26 +25,10 @@ const reviewvalidateschema = (req,res,next)=>{
 rrouter.post("/",
     isLoggedIn,
     reviewvalidateschema,
-    wrapasync(async(req,res,next)=>{
-    let {id} = req.params;
-    let newreview = new review(req.body.review);
-    newreview.author = req.user._id;
-    await newreview.save();
-    let individuallisting = await list.findById(id);
-    individuallisting.reviews.push(newreview);
-    await individuallisting.save();
-    req.flash("success","new Review created");
-    res.redirect(`/listings/show/${id}`);
-}));
+    wrapasync(reviewControllers.createReview));
 //review delete review route
 rrouter.delete("/:reviewid",
     isLoggedIn,
     isAuthor,
-    wrapasync(async(req,res,next)=>{
-let {id,reviewid} = req.params;
-await list.findByIdAndUpdate(id,{$pull:{reviews:reviewid}});
-await review.findByIdAndDelete(reviewid);
-req.flash("success","Review deleted");
-res.redirect(`/listings/show/${id}`)
-}));
+    wrapasync(reviewControllers.deleteReview));
 module.exports = rrouter;
