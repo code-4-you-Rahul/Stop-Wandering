@@ -44,8 +44,20 @@
 <h4>Send Your Experience</h4>
 <form method = "post" novalidate class = "needs-validation" action = "/listings/<%=value._id%>/reviews">
     <div class = "mb-3 mt-3">
-        <label for="customRange2" class="form-label">Range</label>
-        <input type="range"min="1" max="5" id="customRange2" name = "review[rating]">
+      
+
+    <fieldset class="starability-slot">
+        <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+        <label for="first-rate1" title="Terrible">1 star</label>
+        <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+        <label for="first-rate2" title="Not good">2 stars</label>
+        <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+        <label for="first-rate3" title="Average">3 stars</label>
+        <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+        <label for="first-rate4" title="Very good">4 stars</label>
+        <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+        <label for="first-rate5" title="Amazing">5 stars</label>
+      </fieldset>
     </div>
     <div class = "mb-3 mt-3">
         <label for = "comment" class = "form-label">Comment</label>
@@ -68,8 +80,9 @@
             <div class="card mt-3" style="width: 18rem;">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">@<%=review.author.username%></li>
+                  <p class="starability-result" data-rating="<%=review.rating%>">
+                </p>
                   <li class="list-group-item"><%=review.comment%></li>
-                  <li class="list-group-item"><%=review.rating%></li>
                 </ul>
                 <form method = "post" action="/listings/<%=value._id%>/reviews/<%=review._id%>?_method=delete">
                     <button class = "btn btn-danger mt-2">
