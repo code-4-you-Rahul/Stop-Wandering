@@ -18,29 +18,30 @@ const listingvalidateschema = (req,res,next)=>{
             next();
         }
 };
-//index route
-lrouter.get("/",wrapasync(listingControllers.index));
+lrouter.route("/")
+.get(wrapasync(listingControllers.index))
+.post(isLoggedIn,listingvalidateschema,wrapasync(listingControllers.save));
+
 //show route
 lrouter.get("/show/:id",wrapasync(listingControllers.show));
 //new route
 lrouter.get("/new",isLoggedIn,listingControllers.new);
-//post or save route
-lrouter.post("/",isLoggedIn,listingvalidateschema,wrapasync(listingControllers.save));
+
 //edit route
 lrouter.get("/edit/:id",
     isLoggedIn,
     isOwner,
     wrapasync(listingControllers.edit));
 //edited value
-lrouter.patch("/:id",
+lrouter.route("/:id")
+.patch(
     isLoggedIn,
     isOwner,
     listingvalidateschema,
-    wrapasync(listingControllers.editedValue));
-//delete route
-lrouter.delete("/:id",
-    isLoggedIn,
-    isOwner,
-    wrapasync(listingControllers.destroy));
+    wrapasync(listingControllers.editedValue))
+.delete(
+        isLoggedIn,
+        isOwner,
+        wrapasync(listingControllers.destroy));
 
 module.exports = lrouter;
